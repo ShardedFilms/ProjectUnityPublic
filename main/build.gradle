@@ -79,6 +79,10 @@ task dex(type: Jar){
 
         if(OS.isWindows) command = ['cmd', '/c'] + command
         command.join(' ').execute(null, new File("$buildDir/libs")).waitForProcessOutput(System.out, System.err)
+
+                    // Run `d8`.
+        logger.log(LogLevel.LIFECYCLE, 'Running `d8`.')
+        command.execute(null, layout.projectDirectory.asFile).waitForProcessOutput(System.out, System.err)
     }
 
     from zipTree(desktopJar)
